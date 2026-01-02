@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write \"apps/**/*.ts\"",
+    "format:check": "prettier --check \"apps/**/*.ts\""
   },
   "dependencies": {
     "next": "16.1.1",

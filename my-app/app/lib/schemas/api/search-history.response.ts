@@ -18,6 +18,4 @@ export const SearchHistoryResponseSchema = z.object({
   userId: z.string(),
 });
 
-export type SearchHistoryResponse = z.infer<
-  typeof SearchHistoryResponseSchema
->;
+export type SearchHistoryResponse = z.infer<typeof SearchHistoryResponseSchema>;

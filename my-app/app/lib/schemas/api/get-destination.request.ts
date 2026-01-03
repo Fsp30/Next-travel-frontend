@@ -22,6 +22,4 @@ export const GetDestinationRequestSchema = z.object({
   includeSeasonal: z.boolean().optional(),
 });
 
-export type GetDestinationRequest = z.infer<
-  typeof GetDestinationRequestSchema
->;
+export type GetDestinationRequest = z.infer<typeof GetDestinationRequestSchema>;

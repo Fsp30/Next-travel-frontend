@@ -9,7 +9,7 @@ export const GetDestinationFormSchema = z.object({
   origin: z.string().min(2).max(100),
   originCoordinates: CoordinatesSchema.optional(),
 
-  startDate: z.string().optional(), 
+  startDate: z.string().optional(),
   endDate: z.string().optional(),
 
   forecastDays: z.number().min(1).max(7).optional(),
@@ -21,6 +21,4 @@ export const GetDestinationFormSchema = z.object({
   includeSeasonal: z.boolean().optional(),
 });
 
-export type GetDestinationForm = z.infer<
-  typeof GetDestinationFormSchema
->;
+export type GetDestinationForm = z.infer<typeof GetDestinationFormSchema>;

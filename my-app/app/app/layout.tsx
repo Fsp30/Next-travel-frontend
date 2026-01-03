@@ -1,5 +1,5 @@
 import { protectPage } from '../lib/auth';
-import { logout } from '../lib/actions';
+import { logout } from '../actions';
 import Image from 'next/image';
 
 export default async function AppLayout({

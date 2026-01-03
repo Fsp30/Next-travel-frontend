@@ -26,8 +26,23 @@ export async function getCurrentUser(): Promise<CurrentUser> {
     return user;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('[getCurrentUser] Failed to fetch user:', error.message);
+      console.error('[getCurrentUser] Fallah ao buscar user:', error.message);
     }
     return null;
   }
+}
+
+export async function isAutenticated(): Promise<boolean> {
+  const user = await getCurrentUser();
+  return user !== null;
+}
+
+export async function requireAuth(): Promise<NonNullable<CurrentUser>> {
+  const user = await getCurrentUser();
+
+  if (!user) {
+    throw new Error('UNAUTHORIZED');
+  }
+
+  return user;
 }

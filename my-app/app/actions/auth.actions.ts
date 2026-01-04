@@ -95,8 +95,9 @@ export async function refreshAccessToken(): Promise<ActionResult> {
       return { success: false, error: 'No refresh token' };
     }
 
-    const response = await apiFetch<unknown>('/auth/refresh', {
+    const response = await apiFetch<unknown>('/auth/refresh-token', {
       method: 'POST',
+      body: JSON.stringify({ refreshToken: refreshToken.value }),
       cache: 'no-store',
     });
 

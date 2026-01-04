@@ -34,7 +34,7 @@ export async function authenticateUser(
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 15,
+        maxAge: authResult.expiresIn,
         path: '/',
       });
 
@@ -43,7 +43,7 @@ export async function authenticateUser(
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'lax',
-          maxAge: 60 * 60 * 24 * 7,
+          maxAge: authResult.expiresIn,
           path: '/',
         });
       }
@@ -108,7 +108,7 @@ export async function refreshAccessToken(): Promise<ActionResult> {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
-        maxAge: 60 * 15,
+        maxAge: authResult.expiresIn,
         path: '/',
       });
     }

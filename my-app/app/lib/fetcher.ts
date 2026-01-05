@@ -18,38 +18,41 @@ export async function apiFetch<T>(
     },
   });
 
-  if (res.status === 401 && !init?.skipRetry) {
-    console.log('[ApiFetch] Erro 401, tentando refresh token...');
+  if (!res.ok) {
+    let errorMessage = `HTTP ${res.status}`;
 
     try {
-      const refreshRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/refresh`,
-        {
-          method: 'POST',
-          credentials: 'include',
-          cache: 'no-store',
+      const errorData = await res.json().catch(() => null);
+
+      if (errorData) {
+        if (errorData.error && typeof errorData.error === 'string') {
+          errorMessage = errorData.error;
+        } else if (errorData.message && typeof errorData.message === 'string') {
+          errorMessage = errorData.message;
+        } else if (typeof errorData === 'string') {
+          errorMessage = errorData;
         }
-      );
-
-      if (refreshRes.ok) {
-        console.log('[ApiFetch] Token refreshed, refazendo a request...');
-        return apiFetch<T>(input, { ...init, skipRetry: true });
       }
-
-      console.log('[ApiFetch] Token refresh falhou');
-    } catch (error) {
-      console.error('[ApiFetch] Token refresh error:', error);
+    } catch {
+      try {
+        const errorText = await res.text();
+        if (errorText) {
+          errorMessage = errorText;
+        }
+      } catch {}
     }
+
+    console.error(`[ApiFetch] HTTP ${res.status}:`, errorMessage);
+    throw new Error(errorMessage);
   }
 
-  if (!res.ok) {
-    const errorText = await res.text().catch(() => 'Unknown error');
-    console.error(`[ApiFetch] HTTP ${res.status}:`, errorText);
-
-    throw new Error(errorText || `HTTP ${res.status}`);
+  try {
+    const data = await res.json();
+    return data as T;
+  } catch (error) {
+    console.error('[ApiFetch] Erro ao parsear JSON:', error);
+    throw new Error('Resposta inválida do servidor');
   }
-
-  return res.json();
 }
 
 export async function apiGet<T>(
@@ -97,4 +100,29 @@ export async function apiDelete<T>(
     cache: 'no-store',
     ...options,
   });
+}
+
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  message?: string;
+}
+
+export async function apiFetchWithResponse<T>(
+  input: RequestInfo,
+  init?: RequestInit & {
+    tags?: string[];
+    skipRetry?: boolean;
+  }
+): Promise<ApiResponse<T>> {
+  try {
+    const response = await apiFetch<ApiResponse<T>>(input, init);
+    return response;
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Erro desconhecido',
+    };
+  }
 }

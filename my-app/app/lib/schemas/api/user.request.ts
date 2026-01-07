@@ -6,6 +6,8 @@ export const CreateUserRequestSchema = CreateProfileFormSchema.extend({
   googleId: z.string().min(1, 'Google ID é necessário').trim(),
 });
 
+export type CreateUserRequest = z.infer<typeof CreateUserRequestSchema>;
+
 export const GetProfileRequestSchema = z
   .object({
     id: z.uuidv4('Formato de Id Inválido').optional(),

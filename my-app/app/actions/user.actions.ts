@@ -32,7 +32,7 @@ export async function createUser(
     return {
       success: true,
       data: {
-        redirectTo: '/profile',
+        redirectTo: '/dashboard',
       },
     };
   } catch (error) {

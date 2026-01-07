@@ -18,7 +18,7 @@ export async function getCurrentUser(): Promise<CurrentUser> {
 
     const response = await apiFetch<unknown>('/users/me', {
       tags: ['me', 'user'],
-      next: { revalidate: 3600 },
+      next: { revalidate: 300 },
     });
 
     const user = UserResponseSchema.parse(response);

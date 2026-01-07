@@ -9,8 +9,8 @@ export const DestinationInfoResponseSchema = z.object({
   cityInfo: z.object({
     description: z.string(),
     summary: z.string().optional(),
-    pageUrl: z.string().url().optional(),
-    thumbnailUrl: z.string().url().optional(),
+    pageUrl: z.url().optional(),
+    thumbnailUrl: z.url().optional(),
     extractedAt: z.string().optional(),
   }),
 

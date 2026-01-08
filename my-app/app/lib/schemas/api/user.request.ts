@@ -21,6 +21,10 @@ export const GetProfileRequestSchema = z
     path: ['_form'],
   });
 
+export type GetProfileRequest = z.infer<typeof GetProfileRequestSchema>;
+
 export const UpdateProfileRequestSchema = UpdateProfileFormSchema.extend({
   userId: z.uuidv4('Formato de Id Inválido'),
 });
+
+export type UpdateProfileRequest = z.infer<typeof UpdateProfileFormSchema>;

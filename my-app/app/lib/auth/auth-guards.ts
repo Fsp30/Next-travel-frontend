@@ -12,7 +12,9 @@ export async function protectPage(redirectTo: string = '/login') {
   return user;
 }
 
-export async function redirectIfAuthenticated(redirectTo: string = '/dashboard') {
+export async function redirectIfAuthenticated(
+  redirectTo: string = '/dashboard'
+) {
   const user = await getCurrentUser();
 
   if (user) {

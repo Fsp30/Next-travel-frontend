@@ -1,37 +1,30 @@
 import { z } from 'zod';
+import {
+  CacheSchema,
+  CityInfoSchema,
+  CitySchema,
+  CostsSchema,
+  HotelSchema,
+  MetadataSchema,
+  TravelInfoSchema,
+  WeatherSchema,
+} from '../shared';
 
 export const DestinationInfoResponseSchema = z.object({
-  city: z.object({
-    id: z.string(),
-    name: z.string(),
+  data: z.object({
+    city: CitySchema,
+    cityInfo: CityInfoSchema,
+    textGenerated: z.string(),
+
+    weather: WeatherSchema.optional(),
+    costs: CostsSchema.optional(),
+    hotels: z.array(HotelSchema).optional().default([]),
+
+    travelInfo: TravelInfoSchema.optional(),
+    cache: CacheSchema.optional(),
+    metadata: MetadataSchema.optional(),
   }),
-
-  cityInfo: z.object({
-    description: z.string(),
-    summary: z.string().optional(),
-    pageUrl: z.url().optional(),
-    thumbnailUrl: z.url().optional(),
-    extractedAt: z.string().optional(),
-  }),
-
-  textGenerated: z.string(),
-
-  travelInfo: z
-    .object({
-      startDate: z.string().optional(),
-      endDate: z.string().optional(),
-      durationDays: z.number().optional(),
-    })
-    .optional(),
-
-  cache: z
-    .object({
-      cached: z.boolean(),
-      cachedAt: z.string().optional(),
-      expiresAt: z.string().optional(),
-      source: z.enum(['redis', 'fresh']).optional(),
-    })
-    .optional(),
+  success: z.boolean(),
 });
 
 export type DestinationInfoResponse = z.infer<

@@ -38,7 +38,7 @@ export async function authenticateUser(
     return {
       success: true,
       data: {
-        redirectTo: '/profile',
+        redirectTo: '/dashboard',
       },
     };
   } catch (error) {

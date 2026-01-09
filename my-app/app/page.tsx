@@ -33,7 +33,7 @@ export default async function HomePage() {
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Descubra o destino
             <br />
-            <span className="bg-linear-to-r text-zinc-800 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r text-gray-900 bg-clip-text text-transparent">
               perfeito para você
             </span>
           </h1>

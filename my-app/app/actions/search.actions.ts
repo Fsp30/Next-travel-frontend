@@ -3,6 +3,7 @@
 import { revalidateTag } from 'next/cache';
 import { apiFetch } from '../lib/fetcher';
 import {
+  DestinationInfoResponse,
   DestinationInfoResponseSchema,
   GetDestinationRequest,
   GetDestinationRequestSchema,
@@ -13,9 +14,12 @@ type ActionResult<T = undefined> =
   | (T extends undefined ? { success: true } : { success: true; data: T })
   | { success: false; error: string };
 
-export async function searchDestination(
-  data: GetDestinationRequest
-): Promise<ActionResult<{ destination: unknown; fromCache: boolean }>> {
+export async function searchDestination(data: GetDestinationRequest): Promise<
+  ActionResult<{
+    destination: any;
+    fromCache: boolean;
+  }>
+> {
   try {
     console.log('[searchDestination] Iniciando busca:', {
       city: data.cityName,
@@ -31,7 +35,7 @@ export async function searchDestination(
       cache: 'no-store',
     });
 
-    console.log('[searchDestination] Response:', response);
+    console.log('[searchDestination] Response:', JSON.stringify(response, null, 2));
 
     const searchResult = DestinationInfoResponseSchema.parse(response);
 

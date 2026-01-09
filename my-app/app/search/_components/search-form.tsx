@@ -202,7 +202,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
               disabled={isPending}
             />
             <p className="text-xs text-gray-500">
-              Sigla ou nome completo do estado
+              Nome completo do estado
             </p>
           </div>
         </div>

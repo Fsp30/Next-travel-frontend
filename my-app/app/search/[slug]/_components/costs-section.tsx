@@ -117,7 +117,7 @@ export function CostsSection({ costs, travelInfo }: CostsSectionProps) {
       </div>
 
       {costs.totalEstimate && (
-        <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-lg p-4 border-2 border-green-200">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-4 border-2 border-green-200">
           <p className="text-sm text-gray-700 mb-2">Estimativa Total</p>
           <p className="text-2xl font-bold text-gray-900">
             {formatCurrency(costs.totalEstimate.min)} -{' '}

@@ -14,7 +14,7 @@ export function DestinationLoadingSkeleton() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-8">
-            <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 animate-pulse">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 animate-pulse">
               <div className="flex items-start gap-3">
                 <div className="bg-blue-200 p-2 rounded-lg w-12 h-12"></div>
                 <div className="flex-1 space-y-3">
@@ -27,7 +27,7 @@ export function DestinationLoadingSkeleton() {
 
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 animate-pulse">
               <div className="flex items-center gap-2 mb-6">
-                <div className="bg-linear-to-br from-purple-200 to-pink-200 p-2 rounded-lg w-10 h-10"></div>
+                <div className="bg-gradient-to-br from-purple-200 to-pink-200 p-2 rounded-lg w-10 h-10"></div>
                 <div className="h-7 bg-gray-200 rounded w-48"></div>
               </div>
               <div className="space-y-3">
@@ -39,7 +39,7 @@ export function DestinationLoadingSkeleton() {
 
             <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 animate-pulse">
               <div className="h-7 bg-gray-200 rounded w-32 mb-6"></div>
-              <div className="bg-linear-to-br from-blue-200 to-blue-300 rounded-xl p-6 h-48 mb-6"></div>
+              <div className="bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl p-6 h-48 mb-6"></div>
               <div className="grid grid-cols-2 gap-3">
                 {[...Array(4)].map((_, i) => (
                   <div

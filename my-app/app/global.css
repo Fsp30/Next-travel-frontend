@@ -1,15 +1,19 @@
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @layer components {
   .card-hover {
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
  
   .gradient-primary {
-    @apply bg-linear-to-br from-purple-500 to-pink-500;
+    @apply bg-gradient-to-br from-purple-500 to-pink-500;
   }
   
   .gradient-secondary {
-    @apply bg-linear-to-br from-blue-500 to-cyan-500;
+    @apply bg-gradient-to-br from-blue-500 to-cyan-500;
   }
  
   .fade-in {

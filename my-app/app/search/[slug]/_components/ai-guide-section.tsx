@@ -11,7 +11,7 @@ export function AIGuideSection({ text }: AIGuideSectionProps) {
         relative
         rounded-2xl
         border border-purple-200
-        bg-linear-to-br from-purple-50 via-white to-pink-50
+        bg-gradient-to-br from-purple-50 via-white to-pink-50
         shadow-lg
         p-6
       "

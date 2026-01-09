@@ -112,7 +112,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <div className="mb-6 p-4 bg-linear-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
+      <div className="mb-6 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-sm text-blue-800 font-medium mb-1">
@@ -162,7 +162,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
           <div className="space-y-2">
             <label
               htmlFor="cityName"
-              className="block text-sm font-medium text-gray-700 items-center gap-2"
+              className="flex text-sm font-medium text-gray-700 items-center gap-2"
             >
               <MapPin className="w-4 h-4" />
               Cidade de Destino
@@ -186,7 +186,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
           <div className="space-y-2">
             <label
               htmlFor="state"
-              className="block text-sm font-medium text-gray-700"
+              className="flex text-sm font-medium text-gray-700"
             >
               Estado (UF)
             </label>
@@ -211,7 +211,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
         <div className="space-y-2">
           <label
             htmlFor="origin"
-            className="block text-sm font-medium text-gray-700 items-center gap-2"
+            className="flex text-sm font-medium text-gray-700 items-center gap-2"
           >
             <Navigation className="w-4 h-4" />
             Cidade de Origem
@@ -234,16 +234,13 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
 
         {/* Datas */}
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700 items-center gap-2">
+          <label className="flex text-sm font-medium text-gray-700 items-center gap-2">
             <Calendar className="w-4 h-4" />
             Datas da viagem (opcional)
           </label>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label
-                htmlFor="startDate"
-                className="text-xs text-gray-600 block"
-              >
+              <label htmlFor="startDate" className="text-xs text-gray-600 flex">
                 Data de ida
               </label>
               <input
@@ -263,7 +260,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
             </div>
 
             <div className="space-y-1">
-              <label htmlFor="endDate" className="text-xs text-gray-600 block">
+              <label htmlFor="endDate" className="text-xs text-gray-600 flex">
                 Data de volta
               </label>
               <input
@@ -297,7 +294,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-500 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl disabled:cursor-not-allowed hover:scale-[1.02] active:scale-[0.98]"
           >
             {isPending ? (
               <>
@@ -313,7 +310,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
           </button>
         </div>
 
-        <div className="bg-linear-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-5">
+        <div className="bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl p-5">
           <div className="flex items-start gap-3">
             <div className="bg-blue-100 p-2 rounded-lg">
               <span className="text-blue-600 text-xl">ℹ️</span>

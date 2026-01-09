@@ -52,7 +52,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
       </h2>
 
       {weather.current && (
-        <div className="bg-linear-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white mb-6">
+        <div className="bg-gradinet-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white mb-6">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-blue-100 text-sm font-medium mb-1">Agora</p>
@@ -158,7 +158,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
       )}
 
       {weather.seasonal && (
-        <div className="bg-linear-to-br from-amber-50 to-orange-50 rounded-lg p-4 border border-amber-200">
+        <div className="bg-gradinet-to-br from-amber-50 to-orange-50 rounded-lg p-4 border border-amber-200">
           <div className="flex items-start gap-3">
             <span className="text-3xl">
               {seasonEmoji[weather.seasonal.season]}

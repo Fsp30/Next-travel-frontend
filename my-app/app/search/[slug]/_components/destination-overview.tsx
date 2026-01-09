@@ -10,7 +10,7 @@ export function DestinationOverview({
   summary,
 }: DestinationOverviewProps) {
   return (
-    <div className="bg-linear-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+    <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
       <div className="flex items-start gap-3">
         <div className="bg-blue-100 p-2 rounded-lg">
           <Info className="w-5 h-5 text-blue-600" />

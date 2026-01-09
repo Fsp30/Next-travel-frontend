@@ -124,7 +124,7 @@ export default async function SearchPage(props: SearchPageProps) {
     };
 
     return (
-      <div className="min-h-screen bg-linear-to-b from-gray-50 to-gray-100 py-8 fade-in">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8 fade-in">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8 slide-up">
             <DestinationHeader city={cityData} />
@@ -156,7 +156,7 @@ export default async function SearchPage(props: SearchPageProps) {
                       <span className="text-2xl">🌤️</span>
                       Clima
                     </h2>
-                    <div className="bg-linear-to-br from-gray-50 to-gray-100 rounded-xl p-8 text-center">
+                    <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-8 text-center">
                       <p className="text-gray-600 mb-4">
                         ⚠️ Dados de clima temporariamente indisponíveis
                       </p>
@@ -182,7 +182,7 @@ export default async function SearchPage(props: SearchPageProps) {
                         Hotéis em {destination.city.name}
                       </h2>
                     </div>
-                    <div className="bg-linear-to-br from-purple-50 to-pink-50 rounded-lg p-8 text-center border border-purple-100">
+                    <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-8 text-center border border-purple-100">
                       <p className="text-gray-700 mb-4">
                         🏗️ Em busca de opções de hospedagem...
                       </p>
@@ -195,7 +195,7 @@ export default async function SearchPage(props: SearchPageProps) {
                           href={`https://www.google.com/search?q=hot%C3%A9is+${encodeURIComponent(destination.city.name)}+${encodeURIComponent(destination.city.state)}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-linear-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity"
+                          className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity"
                         >
                           🔍 Buscar hotéis no Google
                         </a>
@@ -306,7 +306,7 @@ export default async function SearchPage(props: SearchPageProps) {
                     >
                       <button
                         type="submit"
-                        className="w-full bg-linear-to-r from-amber-500 to-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
+                        className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
                       >
                         🔄 Buscar dados atualizados
                       </button>
@@ -350,7 +350,7 @@ export default async function SearchPage(props: SearchPageProps) {
     );
   } catch (error: unknown) {
     console.error('Unexpected error:', error);
-    if(error instanceof Error){
+    if (error instanceof Error) {
       console.error('Unexpected error:', error.message);
     }
     return (

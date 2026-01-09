@@ -13,9 +13,12 @@ type ActionResult<T = undefined> =
   | (T extends undefined ? { success: true } : { success: true; data: T })
   | { success: false; error: string };
 
-export async function searchDestination(
-  data: GetDestinationRequest
-): Promise<ActionResult<{ destination: unknown; fromCache: boolean }>> {
+export async function searchDestination(data: GetDestinationRequest): Promise<
+  ActionResult<{
+    destination: any;
+    fromCache: boolean;
+  }>
+> {
   try {
     console.log('[searchDestination] Iniciando busca:', {
       city: data.cityName,
@@ -31,7 +34,10 @@ export async function searchDestination(
       cache: 'no-store',
     });
 
-    console.log('[searchDestination] Response:', response);
+    console.log(
+      '[searchDestination] Response:',
+      JSON.stringify(response, null, 2)
+    );
 
     const searchResult = DestinationInfoResponseSchema.parse(response);
 
@@ -45,9 +51,6 @@ export async function searchDestination(
       hotelsCount: destination.hotels?.length ?? 0,
     });
 
-    revalidateTag('destinations', 'max');
-    revalidateTag(`destination-${destination.city.slug}`, 'max');
-
     return {
       success: true,
       data: {
@@ -55,7 +58,7 @@ export async function searchDestination(
         fromCache: destination.cache?.cached ?? false,
       },
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[searchDestination] Erro:', error);
 
     if (error instanceof Error) {
@@ -173,7 +176,7 @@ export async function getPopularDestinations(): Promise<
       success: true,
       data: result.data,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[getPopularDestinations] Erro:', error);
 
     return {
@@ -196,12 +199,15 @@ export async function revalidateDestination(
     revalidateTag('destinations', 'max');
 
     return { success: true };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[revalidateDestination] Erro:', error);
 
     return {
       success: false,
-      error: 'Erro ao revalidar cache',
+      error:
+        error instanceof Error
+          ? error.message
+          : 'Erro ao buscar cidades populares',
     };
   }
 }

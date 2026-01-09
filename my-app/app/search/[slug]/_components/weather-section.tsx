@@ -55,7 +55,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
         <div className="bg-gradinet-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white mb-6">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-blue-100 text-sm font-medium mb-1">Agora</p>
+              <p className="text-zinc-700 text-sm font-medium mb-1">Agora</p>
               <div className="flex items-baseline gap-2">
                 <span className="text-5xl font-bold">
                   {weather.current.temperature}°
@@ -64,7 +64,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
               </div>
               <p className="text-xl mt-2">{weather.current.condition}</p>
               {weather.current.description && (
-                <p className="text-blue-100 text-sm mt-1">
+                <p className="text-zinc-700  text-sm mt-1">
                   {weather.current.description}
                 </p>
               )}
@@ -73,7 +73,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
             <div className="text-right space-y-2">
               {weather.current.temperatureMax && (
                 <div className="text-sm">
-                  <span className="text-blue-100">Máx:</span>{' '}
+                  <span className="text-zinc-700 ">Máx:</span>{' '}
                   <span className="font-semibold">
                     {weather.current.temperatureMax}°
                   </span>
@@ -81,7 +81,7 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
               )}
               {weather.current.temperatureMin && (
                 <div className="text-sm">
-                  <span className="text-blue-100">Mín:</span>{' '}
+                  <span className="text-zinc-700 ">Mín:</span>{' '}
                   <span className="font-semibold">
                     {weather.current.temperatureMin}°
                   </span>

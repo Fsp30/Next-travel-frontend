@@ -3,7 +3,6 @@
 import { revalidateTag } from 'next/cache';
 import { apiFetch } from '../lib/fetcher';
 import {
-  DestinationInfoResponse,
   DestinationInfoResponseSchema,
   GetDestinationRequest,
   GetDestinationRequestSchema,
@@ -35,7 +34,10 @@ export async function searchDestination(data: GetDestinationRequest): Promise<
       cache: 'no-store',
     });
 
-    console.log('[searchDestination] Response:', JSON.stringify(response, null, 2));
+    console.log(
+      '[searchDestination] Response:',
+      JSON.stringify(response, null, 2)
+    );
 
     const searchResult = DestinationInfoResponseSchema.parse(response);
 
@@ -49,9 +51,6 @@ export async function searchDestination(data: GetDestinationRequest): Promise<
       hotelsCount: destination.hotels?.length ?? 0,
     });
 
-    revalidateTag('destinations', 'max');
-    revalidateTag(`destination-${destination.city.slug}`, 'max');
-
     return {
       success: true,
       data: {
@@ -59,7 +58,7 @@ export async function searchDestination(data: GetDestinationRequest): Promise<
         fromCache: destination.cache?.cached ?? false,
       },
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[searchDestination] Erro:', error);
 
     if (error instanceof Error) {
@@ -177,7 +176,7 @@ export async function getPopularDestinations(): Promise<
       success: true,
       data: result.data,
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[getPopularDestinations] Erro:', error);
 
     return {
@@ -200,12 +199,15 @@ export async function revalidateDestination(
     revalidateTag('destinations', 'max');
 
     return { success: true };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error('[revalidateDestination] Erro:', error);
 
     return {
       success: false,
-      error: 'Erro ao revalidar cache',
+      error:
+        error instanceof Error
+          ? error.message
+          : 'Erro ao buscar cidades populares',
     };
   }
 }

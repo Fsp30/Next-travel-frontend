@@ -12,7 +12,9 @@ export default async function HomePage() {
           {user && (
             <div className="mb-6">
               <p className="text-lg text-gray-700">
-                Olá, <span className="font-semibold text-gray-900">{user.name}</span>! 👋
+                Olá,{' '}
+                <span className="font-semibold text-gray-900">{user.name}</span>
+                ! 👋
               </p>
               <div className="mt-2">
                 <Link

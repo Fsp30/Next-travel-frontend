@@ -188,7 +188,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
               htmlFor="state"
               className="flex text-sm font-medium text-gray-700"
             >
-              Estado 
+              Estado
             </label>
             <input
               type="text"
@@ -201,9 +201,7 @@ export function SearchForm({ onSuccess }: SearchFormProps) {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-gray-400 uppercase"
               disabled={isPending}
             />
-            <p className="text-xs text-gray-500">
-              Nome completo do estado
-            </p>
+            <p className="text-xs text-gray-500">Nome completo do estado</p>
           </div>
         </div>
 

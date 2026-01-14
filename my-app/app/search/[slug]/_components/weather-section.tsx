@@ -62,7 +62,9 @@ export function WeatherSection({ weather }: WeatherSectionProps) {
                 </span>
                 <span className="text-blue-100">C</span>
               </div>
-              <p className="text-xl mt-2 font-semibold">{weather.current.condition}</p>
+              <p className="text-xl mt-2 font-semibold">
+                {weather.current.condition}
+              </p>
               {weather.current.description && (
                 <p className="text-blue-100 text-sm mt-1">
                   {weather.current.description}

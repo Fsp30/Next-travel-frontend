@@ -1,20 +1,29 @@
+import { cookies } from 'next/headers';
+
 export async function apiFetch<T>(
   input: RequestInfo,
   init?: RequestInit & {
     tags?: string[];
     skipRetry?: boolean;
+    exposeHeaders?: boolean;
   }
-): Promise<T> {
+): Promise<T & { __headers?: Headers }> {
   const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}${input}`;
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join('; ');
 
   const res = await fetch(url, {
     ...init,
     credentials: 'include',
-    cache: init?.cache ?? 'force-cache',
+    cache: init?.cache ?? 'no-store',
     next: init?.next ?? { tags: init?.tags },
     headers: {
-      'Content-Type': 'application/json',
       ...init?.headers,
+      'Content-Type': 'application/json',
+      ...(cookieHeader ? { Cookie: cookieHeader } : {}),
     },
   });
 
@@ -47,8 +56,16 @@ export async function apiFetch<T>(
   }
 
   try {
-    const data = await res.json();
-    return data as T;
+    const data = (await res.json()) as T;
+
+    if (init?.exposeHeaders) {
+      return {
+        ...data,
+        __headers: res.headers,
+      } as T & { __headers: Headers };
+    }
+
+    return data as T & { __headers?: Headers };
   } catch (error) {
     console.error('[ApiFetch] Erro ao parsear JSON:', error);
     throw new Error('Resposta inválida do servidor');

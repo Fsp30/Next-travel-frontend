@@ -1,9 +1,10 @@
 'use client';
 
 import { updateProfile } from '@/app/actions';
-import { CurrentUser } from '@/app/lib/auth';
+
 import Image from 'next/image';
 import { useState, useTransition } from 'react';
+import type { CurrentUser } from '@/app/lib/auth';
 
 interface ProfileFormProps {
   user: NonNullable<CurrentUser>;

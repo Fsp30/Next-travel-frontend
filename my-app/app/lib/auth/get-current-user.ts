@@ -1,32 +1,31 @@
 import 'server-only';
-import z from 'zod';
-import { UserResponseSchema } from '../schemas';
-import { cookies } from 'next/headers';
+import z, { ZodError } from 'zod';
+import { AuthResponseSchema, UserResponseSchema } from '../schemas';
 import { apiFetch } from '../fetcher';
 
-export type CurrentUser = z.infer<typeof UserResponseSchema> | null;
+type CurrentUser = z.infer<typeof UserResponseSchema> | null;
 
-export async function getCurrentUser(): Promise<CurrentUser> {
+export async function getCurrentUser(): Promise<CurrentUser | null> {
   try {
-    const cookieStore = await cookies();
-    const hasAuthCookie =
-      cookieStore.has('access_token') || cookieStore.has('session');
-
-    if (!hasAuthCookie) {
-      return null;
-    }
-
     const response = await apiFetch<unknown>('/users/me', {
       tags: ['me', 'user'],
-      next: { revalidate: 300 },
+      cache: 'no-store',
     });
+    const validate = AuthResponseSchema.parse(response);
 
-    const user = UserResponseSchema.parse(response);
-
-    return user;
+    return validate.data.user;
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('[getCurrentUser] Fallah ao buscar user:', error.message);
+      console.error('[getCurrentUser] Falha ao buscar user:', error.message);
+    }
+
+    if (error instanceof ZodError) {
+      console.log(
+        error.issues.map((issue) => ({
+          field: issue.path.join('.'),
+          message: issue.message,
+        }))
+      );
     }
     return null;
   }

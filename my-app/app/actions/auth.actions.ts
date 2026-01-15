@@ -9,6 +9,7 @@ import {
   type AuthenticateUserRequest,
 } from '@/app/lib/schemas/api/authenticate-user.request';
 import { AuthResponseSchema } from '@/app/lib/schemas/api/auth.response';
+import { proxiCookies } from './proxy/cookies';
 
 type ActionResult<T = undefined> =
   | (T extends undefined ? { success: true } : { success: true; data: T })
@@ -24,7 +25,14 @@ export async function authenticateUser(
       method: 'POST',
       body: JSON.stringify(validated),
       cache: 'no-store',
+      exposeHeaders: true,
     });
+
+    const { __headers } = response;
+
+    if (__headers?.get('set-cookie')) {
+      await proxiCookies(__headers.get('set-cookie')!);
+    }
 
     console.log('[authenticateUser] Response:', response);
 
@@ -38,7 +46,7 @@ export async function authenticateUser(
     return {
       success: true,
       data: {
-        redirectTo: '/',
+        redirectTo: '/profile',
       },
     };
   } catch (error) {

@@ -2,7 +2,7 @@ import { redirectIfAuthenticated } from '@/app/lib/auth';
 import { LoginForm } from './_components/login-form';
 import { Plane } from 'lucide-react';
 export default async function LoginPage() {
-  await redirectIfAuthenticated('/(dashboard)');
+  await redirectIfAuthenticated('/profile');
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">

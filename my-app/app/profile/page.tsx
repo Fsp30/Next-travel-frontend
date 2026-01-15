@@ -28,7 +28,13 @@ export default async function ProfilePage() {
           </p>
           {user.profilePicture && (
             <div>
-              <Image src={user.profilePicture} alt={user.name} />
+              <Image
+                src={user.profilePicture}
+                alt={user.name}
+                priority={false}
+                width={30}
+                height={30}
+              />
             </div>
           )}
           {user.lastLogin && (

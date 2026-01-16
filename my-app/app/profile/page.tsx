@@ -1,50 +1,23 @@
-import { logout } from '../actions';
 import { protectPage } from '../lib/auth';
 import Image from 'next/image';
+import LogoutButton from './_components/logout-button';
+import InfoProfileCard from './_components/info-profile-card';
+import { redirect } from 'next/navigation';
 
 export default async function ProfilePage() {
   const user = await protectPage();
 
+  if (!user) {
+    redirect('/login');
+  }
+
   return (
-    <div>
-      <div>
-        <h1> Meu Perfil</h1>
-
-        <form action={logout}>
-          <button type="submit">Sair</button>
-        </form>
+    <div className="container mx-auto p-6 max-w-2xl">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold"> Meu Perfil</h1>
+        <LogoutButton />
       </div>
-
-      <div>
-        <h2>Informações</h2>
-        <div>
-          <p>
-            <strong>Nome: </strong>
-            {user.name}
-          </p>
-          <p>
-            <strong>Email: </strong>
-            {user.email}
-          </p>
-          {user.profilePicture && (
-            <div>
-              <Image
-                src={user.profilePicture}
-                alt={user.name}
-                priority={false}
-                width={30}
-                height={30}
-              />
-            </div>
-          )}
-          {user.lastLogin && (
-            <p>
-              <strong>Último Login: </strong>{' '}
-              {new Date(user.lastLogin).toLocaleString('pt-BR')}
-            </p>
-          )}
-        </div>
-      </div>
+      <InfoProfileCard user={user} />
     </div>
   );
 }

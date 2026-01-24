@@ -58,11 +58,11 @@ export async function createProfile(
 
 export async function getProfile(
   data: GetProfileRequest
-): Promise<ActionResult<{ retirectTo: string }>> {
+): Promise<ActionResult<{ redirectTo: string }>> {
   try {
     const validated = GetProfileRequestSchema.parse(data);
 
-    const response = await apiFetch<unknown>('me', {
+    const response = await apiFetch<unknown>('/me', {
       method: 'GET',
       body: JSON.stringify(validated),
     });
@@ -78,7 +78,7 @@ export async function getProfile(
     return {
       success: true,
       data: {
-        retirectTo: '/profile',
+        redirectTo: '/profile',
       },
     };
   } catch (error: unknown) {
@@ -144,7 +144,7 @@ export async function updateProfile(
 
 export async function uploadFile(
   formData: FormData
-): Promise<ActionResult<{ retirectTo: string }>> {
+): Promise<ActionResult<{ redirectTo: string }>> {
   try {
     const file = formData.get('file') as File;
     if (!file) {
@@ -165,7 +165,7 @@ export async function uploadFile(
     return {
       success: true,
       data: {
-        retirectTo: '/profile',
+        redirectTo: '/profile',
       },
     };
   } catch (error: unknown) {

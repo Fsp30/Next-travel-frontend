@@ -1,17 +1,20 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { apiFetch } from '../lib/fetcher';
 import {
   CreateUserRequest,
   CreateUserRequestSchema,
+  FileSchema,
   GetProfileRequest,
   GetProfileRequestSchema,
   UpdateProfileRequest,
   UpdateProfileRequestSchema,
   UserResponseSchema,
 } from '../lib/schemas';
+import { put } from '@vercel/blob';
 import { ZodError } from 'zod';
+import { GlobalStorageResult } from './interface';
 
 type ActionResult<T = undefined> =
   | (T extends undefined ? { success: true } : { success: true; data: T })
@@ -55,11 +58,11 @@ export async function createProfile(
 
 export async function getProfile(
   data: GetProfileRequest
-): Promise<ActionResult<{ retirectTo: string }>> {
+): Promise<ActionResult<{ redirectTo: string }>> {
   try {
     const validated = GetProfileRequestSchema.parse(data);
 
-    const response = await apiFetch<unknown>('me', {
+    const response = await apiFetch<unknown>('/me', {
       method: 'GET',
       body: JSON.stringify(validated),
     });
@@ -75,7 +78,7 @@ export async function getProfile(
     return {
       success: true,
       data: {
-        retirectTo: '/profile',
+        redirectTo: '/profile',
       },
     };
   } catch (error: unknown) {
@@ -135,6 +138,51 @@ export async function updateProfile(
       success: false,
       error:
         error instanceof Error ? error.message : 'Falha na busca de usuário',
+    };
+  }
+}
+
+export async function uploadFile(
+  formData: FormData
+): Promise<ActionResult<{ redirectTo: string; url: string }>> {
+  try {
+    const file = formData.get('file') as File;
+    if (!file) {
+      throw new Error('Nenhum arquivo encontrado');
+    }
+
+    const validatedFile = FileSchema.parse(file);
+
+    const result: GlobalStorageResult = await put(validatedFile.name, file, {
+      access: 'public',
+    });
+
+    if (!result) {
+      throw new Error('Falha ao salvar arquivo');
+    }
+
+    revalidatePath('/');
+    return {
+      success: true,
+      data: {
+        redirectTo: '/profile',
+        url: result.url,
+      },
+    };
+  } catch (error: unknown) {
+    if (error instanceof ZodError) {
+      console.log(
+        error.issues.map((issue) => ({
+          field: issue.path.join('.'),
+          message: issue.message,
+        }))
+      );
+    }
+
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : 'Falha ao salvar o arquivo',
     };
   }
 }

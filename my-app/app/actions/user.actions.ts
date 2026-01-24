@@ -144,7 +144,7 @@ export async function updateProfile(
 
 export async function uploadFile(
   formData: FormData
-): Promise<ActionResult<{ redirectTo: string }>> {
+): Promise<ActionResult<{ redirectTo: string; url: string }>> {
   try {
     const file = formData.get('file') as File;
     if (!file) {
@@ -166,6 +166,7 @@ export async function uploadFile(
       success: true,
       data: {
         redirectTo: '/profile',
+        url: result.url,
       },
     };
   } catch (error: unknown) {
